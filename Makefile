@@ -8,5 +8,6 @@ build:
 	@docker-compose -f docker-compose.build.yml build
 
 publish-images:
+	@${TAG:? Tag required}
 	@${REPO:? Repository must be specified}
-	@docker push ${REPO}/bitbites-api
+	@docker push ${REPO}/bitbites-api:${TAG}
