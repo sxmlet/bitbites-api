@@ -1,6 +1,6 @@
 services:
-  bites-auth-api:
-    image: ${REPO}/bites-auth-api
+  bitbites-api:
+    image: ${REPO}/bitbites-api
     build:
       context: .
     env_file:
@@ -12,3 +12,4 @@ services:
 
 networks:
   bites-api:
+    external: true
