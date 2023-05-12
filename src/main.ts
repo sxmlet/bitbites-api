@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import {IndexRouter} from './controllers/v0/index.router.js';
 import {createLogger} from "./common/logger.js";
+import {requestContext} from "./common/request.js";
 
 dotenv.config();
 const logger = createLogger('app-root');

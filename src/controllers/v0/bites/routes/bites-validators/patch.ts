@@ -3,7 +3,7 @@ import {NextFunction, Request, Response} from "express";
 import {getBite} from "../../data/bite.js";
 import {createLogger} from "../../../../../common/logger.js";
 import {toJsonString} from "../../../../../common/utils.js";
-import {invalidResponse} from "../../../../../common/request.js";
+import {invalidResponse, requestContext} from "../../../../../common/request.js";
 
 const logger = createLogger('update-bite-validator', 'info');
 
@@ -22,6 +22,10 @@ export default async function updateValidator(req: Request, res: Response, next:
   const bite = await getBite(id);
   if (!bite) {
     return invalidResponse(res, 'bite not found', 404);
+  }
+  const uid = requestContext.getUserId();
+  if (bite.getDataValue('uid') !== uid) {
+    return invalidResponse(res, 'user is not authorized to update bite', 403)
   }
 
   next();

@@ -6,7 +6,19 @@ services:
       - .env
     networks:
       - bites-api
+      - bites-db
+
+  postgres:
+    image: postgres:alpine3.17
+    restart: 'unless-stopped'
+    ports:
+      - 55432:5432
+    env_file:
+      - .env
+    networks:
+      - bites-db
 
 networks:
   bites-api:
     external: true
+  bites-db:

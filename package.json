@@ -6,7 +6,7 @@
   "main": "./src/main.ts",
   "scripts": {
     "compile": "rm -rf ./dist && ./node_modules/.bin/tsc",
-    "start": "npm run compile && nodemon",
+    "dev": "npm run compile && nodemon",
     "prod": "npm run compile && node ./dist/main.js"
   },
   "keywords": [],

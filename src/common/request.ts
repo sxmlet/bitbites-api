@@ -1,4 +1,5 @@
 import {Response} from "express";
+import {randomUUID} from "crypto";
 
 export function invalidResponse(res: Response, message: string, status: number = 400) {
   return res.status(status).send(JSON.stringify({
@@ -6,6 +7,7 @@ export function invalidResponse(res: Response, message: string, status: number =
   }))
 }
 
+// @todo: add request id to track requests.
 class RequestContext {
 
   private userId: string = '';
