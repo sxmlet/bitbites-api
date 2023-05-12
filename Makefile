@@ -5,7 +5,7 @@ run: build
 
 build:
 	@${TAG:? Tag required}
-	@docker-compose build
+	@docker-compose -f docker-compose.build.yml build
 
 publish-images:
 	@${REPO:? Repository must be specified}

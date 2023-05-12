@@ -2,11 +2,5 @@
 services:
   bitbites-api:
     image: ${REPO}/bitbites-api:${TAG}
-    env_file:
-      - .env
-    networks:
-      - bites-api
-
-networks:
-  bites-api:
-    external: true
+    build:
+      context: .
