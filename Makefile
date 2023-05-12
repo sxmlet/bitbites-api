@@ -4,6 +4,7 @@ run: build
 	@docker-compose up -d
 
 build:
+	@${TAG:? Tag required}
 	@docker-compose build
 
 publish-images:

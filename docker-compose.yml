@@ -1,14 +1,13 @@
+# This service is not meant to be exposed, can only be reached through bites auth api.
 services:
   bitbites-api:
-    image: ${REPO}/bitbites-api
+    image: ${REPO}/bitbites-api:${TAG}
     build:
       context: .
     env_file:
       - .env
     networks:
       - bites-api
-    ports:
-      - 8080:8080
 
 networks:
   bites-api:

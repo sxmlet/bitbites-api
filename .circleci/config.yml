@@ -10,13 +10,13 @@ jobs:
       - checkout
       - run:
           name: Build docker image
-          command: make build
+          command: TAG=${CIRCLE_TAG} make build
       - run:
           name: Log in to hub.docker.com
           command: echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
       - run:
           name: Publish docker image
-          command: make publish-images
+          command: TAG=${CIRCLE_TAG} make publish-images
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
@@ -25,5 +25,5 @@ workflows:
     jobs:
       - build:
           filters:
-            branches:
-              only: /main/
+            tags:
+              only: /^v.*/
