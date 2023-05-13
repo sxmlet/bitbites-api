@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bitbites-api
+  labels:
+    app: bitbites-api
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: bitbites-api
+      labels:
+        app: bitbites-api
+    spec:
+      containers:
+        - name: bitbites-api
+          image: DOCKER_IMAGE
+          imagePullPolicy: Always
+          env:
+            - name: VERSION
+              value: {VERSION}
+            - name: BUCKET
+              valueFrom:
+                configMapKeyRef:
+                  key: BUCKET
+                  name: bitbites
+            - name: REGION
+              valueFrom:
+                configMapKeyRef:
+                  key: REGION
+                  name: bitbites
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: PORT
+                  name: bitbites
+            - name: BITBITES_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: BITBITES_ACCESS_KEY_ID
+                  name: secrets
+            - name: BITBITES_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: BITBITES_SECRET_ACCESS_KEY
+                  name: secrets
+            - name: BITBITES_SESSION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: BITBITES_SESSION_TOKEN
+                  name: secrets
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_USER
+                  name: secrets
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: secrets
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_DB
+                  name: secrets
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_HOST
+                  name: secrets
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: 1000m
+            requests:
+              cpu: 500m
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: bitbites-api

@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import {IndexRouter} from './controllers/v0/index.router.js';
 import {createLogger} from "./common/logger.js";
-import {requestContext} from "./common/request.js";
+import {toJsonString} from "./common/utils.js";
 
 dotenv.config();
 const logger = createLogger('app-root');
@@ -28,6 +28,10 @@ app.use(cors({
     methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
     origin: '*',
 }));
+
+app.get('/version', (req: Request, res: Response) => {
+    res.send(toJsonString({version: process.env.VERSION ?? ''}))
+});
 
 app.use(IndexRouter)
 app.listen(port, () => {
